@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 const login = require('./routes/login');
 const checkToken = require('./routes/check-token');
+const logout = require('./routes/logout');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(cookieParser());
 
 app.use('/login', login);
 app.use('/check_token', checkToken);
+app.use('/logout', logout);
 
 let port = process.env.PORT || 8080;
 app.set('port', port);

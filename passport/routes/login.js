@@ -3,6 +3,7 @@
 const express = require('express');
 const service = require('../service');
 const router = express.Router();
+const { t_token, t_client_info } = require('../data/index');
 
 router.get('/', function (req, res, next) {
   let cookies = req.cookies;
@@ -39,6 +40,14 @@ router.post('/', function (req, res, next) {
       maxAge: 1000 * 60 * 60 * 24 * 30,
       httpOnly: true
     });
+
+    // 模拟存储
+    t_token.push(token);
+    t_client_info[token] = {
+      sessionId: token,
+      clientUrl: t_client_info[token] && t_client_info[token].clientUrl ? t_client_info[token].clientUrl.concat(req.query.redirectUrl) : req.query.redirectUrl
+    };
+
     if (req.query.redirectUrl) {
       res.redirect('http://' + req.query.redirectUrl + '?token=' + token);
     } else {

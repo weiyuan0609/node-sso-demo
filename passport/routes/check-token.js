@@ -5,8 +5,8 @@ const service = require('../service');
 const router = express.Router();
 
 router.get('/', function (req, res, next) {
-  var token = req.query.token;
-  var result = {
+  let token = req.query.token;
+  let result = {
     error: 1, //登录失败
   };
   if (service.isTokenValid(token)) {
